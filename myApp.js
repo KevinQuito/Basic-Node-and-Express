@@ -26,10 +26,13 @@ function(req, res) {
 NOTE: This will allow you to connect to the /views/index.html and execute all the html code in there
 */
 
-app.get("/", function(request, response){
+// app.get("/", function(request, response){
+//   response.sendFile(__dirname + "/views/index.html");
+// });
+// ADDED ARROW FUNCTIONS WHEN USING NODE SINCE IT'S CLEANER
+app.get("/", (request, response)=>{
   response.sendFile(__dirname + "/views/index.html");
 });
-
 
 // serve static assets part 4
 /*
@@ -53,9 +56,16 @@ use the method res.json(), passing in an object as an argument
 A valid object has the usual structure {key: data}
 data can be a number, a string, a nested object or an array
 data can also be a variable or the result of a function call, in which case it will be evaluated before being converted into a string.
+
+NOTE: adding /json to the root address will allow you to see the json Response
+      for example https://salty-refuge-39989.herokuapp.com/json
 */
 
-app.get("/json", function(request, response){
+// app.get("/json", function(request, response){
+//   response.json({"message": "Hello json"});
+// });
+// ADDED ARROW FUNCTIONS WHEN USING NODE SINCE IT'S CLEANER
+app.get("/json", (request, response) =>{
   response.json({"message": "Hello json"});
 });
 
