@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bGround = require('fcc-express-bground');
+require('dotenv').config();
 
 // meet the node console part 1
 bGround.log('Hello World');
@@ -65,12 +66,24 @@ NOTE: adding /json to the root address will allow you to see the json Response
 //   response.json({"message": "Hello json"});
 // });
 // ADDED ARROW FUNCTIONS WHEN USING NODE SINCE IT'S CLEANER
-app.get("/json", (request, response) =>{
-  response.json({"message": "Hello json"});
+// app.get("/json", (request, response) =>{
+//   response.json({"message": "Hello json"});
+// });
+
+// use the .env file part 6
+/*
+Create a .env file in the root of your project directory, and store the variable
+.env files are secret files that no one else can see, but you. These files should not show up
+in the github files. It's a shell file so when you write shell variables for example, it would be
+API_KEY=hwgGSEG.
+*/
+
+app.get("/json", (req, res) =>{
+  const message = (process.env.MESSAGE_STYLE === "uppercase") ? "HELLO JSON" : "Hello json";
+    res.json(
+  { message }
+  );
 });
-
-
-
 
 
 
