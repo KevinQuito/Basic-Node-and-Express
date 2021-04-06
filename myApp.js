@@ -35,6 +35,24 @@ app.get("/", (request, response)=>{
   response.sendFile(__dirname + "/views/index.html");
 });
 
+
+// implement a root-level request logger middleware part 7
+/*
+------- example function(req, res, next) {
+  console.log("I'm a middleware...");
+  next();
+}
+As you have seen in challenge 4, to mount a middleware function at root level, you can use the app.use(<mware-function>) method
+if you want a function to be executed only for POST requests, you could use app.post(<mware-function>)
+Analogous methods exist for all the HTTP verbs (GET, DELETE, PUT, …).
+Note: Express evaluates functions in the order they appear in the code. This is true for middleware too. If you want it to work for all the routes, it should be mounted before them.
+*/
+
+
+app.use((req, res, next)=>{
+  console.log(req.method + " " +  req.path + " - " + req. ip);
+  next();
+});
 // serve static assets part 4
 /*
 example --------- express.static(absolutePath)
@@ -47,6 +65,7 @@ NOTE: Our HTML should look better since the index.html is referencing the /publi
 EXTRA NOTE: adding /public/style.css to the root address will allow you to see the css code
             for example, https://salty-refuge-39989.herokuapp.com/public/style.css
 */
+
 app.use("/public", express.static(__dirname + "/public"));
 
 
@@ -84,6 +103,7 @@ app.get("/json", (req, res) =>{
   { message }
   );
 });
+
 
 
 
