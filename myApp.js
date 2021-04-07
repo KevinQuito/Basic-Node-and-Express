@@ -100,6 +100,7 @@ app.use("/public", express.static(__dirname + "/public"));
 // When dealing with middleware, must add next(); otherwise it will just get stuck in that middleware
 app.use((req, res, next)=>{
   bodyParser.urlencoded({extended: false});
+  console.log(bodyParser);
   next();
 });
 
