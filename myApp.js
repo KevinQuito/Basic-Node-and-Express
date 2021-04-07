@@ -98,11 +98,13 @@ app.use("/public", express.static(__dirname + "/public"));
   be mounted before all the routes which need it
 */
 // When dealing with middleware, must add next(); otherwise it will just get stuck in that middleware
-app.use((req, res, next)=>{
-  bodyParser.urlencoded({extended: false});
-  console.log(bodyParser);
-  next();
-});
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
 
 
 
