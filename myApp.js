@@ -165,7 +165,7 @@ The first and last name parameters should be encoded in a query string e.g. ?fir
 */
 
 app.get("/name", (req, res)=>{
-    res.json({ name: req.query.firstname + " " + req.query.lastname});
+    res.json({ name: req.query.first + " " + req.query.last});
 });
 
 
