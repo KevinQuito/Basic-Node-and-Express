@@ -2,12 +2,14 @@ var express = require('express');
 var app = express();
 var bGround = require('fcc-express-bground');
 require('dotenv').config();
+var bodyParser = require('body-parser');
 
 // meet the node console part 1
 bGround.log('Hello World');
 console.log('Hello World');
 
-// start a working express server part 2
+// start a working express server part 2  NOTE: middleware must run before all the other routes because
+//                                              we want it to run on all routes
 /*
 example ------- app.METHOD(PATH, HANDLER)
 function(req, res) {
@@ -71,6 +73,36 @@ EXTRA NOTE: adding /public/style.css to the root address will allow you to see t
 */
 
 app.use("/public", express.static(__dirname + "/public"));
+
+// use-body parser to Parse POST Request part 11
+/*
+  Besides GET, there is another common HTTP verb, it is POST. POST is the default
+  method used to send client data with HTML forms. In REST convention, POST is
+  used to send data to create new items in the database (a new user, or a new blog
+  post). You don’t have a database in this project, but you are going to learn how
+  to handle POST requests anyway.
+  In these kind of requests, the data doesn’t appear in the URL, it is hidden in the request body.
+  The body is a part of the HTTP request, also called the payload. Even though the data is not
+  visible in the URL, this does not mean that it is private. To see why, look at the raw content
+  of an HTTP POST request:
+
+  POST /path/subpath HTTP/1.0
+  From: john@example.com
+  User-Agent: someBrowser/1.0
+  Content-Type: application/x-www-form-urlencoded
+  Content-Length: 20
+  name=John+Doe&age=25
+
+  The middleware to handle urlencoded data is returned by bodyParser.urlencoded({extended: false}).
+  Pass to app.use() the function returned by the previous method call. As usual, the middleware must
+  be mounted before all the routes which need it
+*/
+// When dealing with middleware, must add next(); otherwise it will just get stuck in that middleware
+app.use((req, res, next)=>{
+  bodyParser.urlencoded({extended: false});
+  next();
+});
+
 
 
 // serve json on a specific route part 5
@@ -167,6 +199,8 @@ The first and last name parameters should be encoded in a query string e.g. ?fir
 app.get("/name", (req, res)=>{
     res.json({ name: req.query.first + " " + req.query.last});
 });
+
+
 
 
 
