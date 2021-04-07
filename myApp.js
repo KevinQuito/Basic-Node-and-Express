@@ -137,12 +137,9 @@ route_path: '/user/:userId/book/:bookId'
 actual_request_URL: '/user/546/book/6754'
 req.params: {userId: '546', bookId: '6754'}
 Build an echo server, mounted at the route GET /:word/echo
-
-NOTE: cannot use arrow function for this one for some reason (req,res)=>
-      must use function(req, res) instead
 */
 
-app.get("/:word/echo", function(req, res){
+app.get("/:word/echo", (req, res)=>{
   res.json({ echo: req.params.word});
 });
 
