@@ -46,6 +46,10 @@ As you have seen in challenge 4, to mount a middleware function at root level, y
 if you want a function to be executed only for POST requests, you could use app.post(<mware-function>)
 Analogous methods exist for all the HTTP verbs (GET, DELETE, PUT, …).
 Note: Express evaluates functions in the order they appear in the code. This is true for middleware too. If you want it to work for all the routes, it should be mounted before them.
+
+NOTE: if you use app.use((req, res, next)=>, then it will pass in all the directories, but if you use
+      app.use("/", (req, res, next)=>, then it will only run on the root directory.
+When refreshing the page, you should see a logger in the console that tells you your ip address
 */
 
 
@@ -104,7 +108,26 @@ app.get("/json", (req, res) =>{
   );
 });
 
+// chain middleware to create a time server part 8
+/*
+---------- example
+app.get('/user', function(req, res, next) {
+  req.user = getTheUserSync();  // Hypothetical synchronous operation
+  next();
+}, function(req, res) {
+  res.send(req.user);
+});
+*/
+function getTheCurrentTimeString(){
+  return new Date().toString();
+}
 
+app.get('/now', (req, res, next)=>{
+  req.time = getTheCurrentTimeString();
+  next();
+},(req, res)=>{
+  res.json({ time: req.time });
+});
 
 
 
