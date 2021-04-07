@@ -136,16 +136,37 @@ app.get('/now', (req, res, next)=>{
 route_path: '/user/:userId/book/:bookId'
 actual_request_URL: '/user/546/book/6754'
 req.params: {userId: '546', bookId: '6754'}
+The captured values can be found in the req.params object.
 Build an echo server, mounted at the route GET /:word/echo
+You can test your route from your browser's address bar, visiting some matching routes, e.g. your-app-rootpath/freecodecamp/echo.
+
+example------
+app.get("route_path", (req,res)=>{
+  res.json({ echo: req.params.word })
+})
+
+NOTE: local server is localhost/3000/randomwordgfowief/echo
+      public server is https://salty-refuge-39989.herokuapp.com/randomwordsofjwegw/echo
 */
 
 app.get("/:word/echo", (req, res)=>{
   res.json({ echo: req.params.word});
 });
 
+// get query parameter from client part 10
+/*
+The query string is delimited by a question mark (?), and includes field=value couples. Each couple is separated by an ampersand (&). Express can parse the data from the query string, and populate the object req.query
+route_path: '/library'
+actual_request_URL: '/library?userId=546&bookId=6754'
+req.query: {userId: '546', bookId: '6754'}
 
+Build an API endpoint, mounted at GET /name. Respond with a JSON document, taking the structure { name: 'firstname lastname'}
+The first and last name parameters should be encoded in a query string e.g. ?first=firstname&last=lastname.
+*/
 
-
+app.get("/name", (req, res)=>{
+    res.json({ name: req.query.firstname + " " + req.query.lastname});
+});
 
 
 
