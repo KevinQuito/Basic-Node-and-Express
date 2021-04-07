@@ -97,7 +97,7 @@ app.use("/public", express.static(__dirname + "/public"));
   Pass to app.use() the function returned by the previous method call. As usual, the middleware must
   be mounted before all the routes which need it
 */
-// When dealing with middleware, must add next(); otherwise it will just get stuck in that middleware
+// This mounts the 'body-parser' middleware
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -203,8 +203,27 @@ app.get("/name", (req, res)=>{
     res.json({ name: req.query.first + " " + req.query.last});
 });
 
+// get data from POST request part 12
+/*
+  Mount a POST handler at the path /name
+  It will submit the same data of exercise 10 (Query string).
+  If the body-parser is configured correctly, you should find the parameters in the object req.body
+  example
+  route: POST '/library'
+  urlencoded_body: userId=546&bookId=6754
+  req.body: {userId: '546', bookId: '6754'}
+  Respond with the same JSON object as before: {name: 'firstname lastname'}
 
+  NOTE: We will be responding with a json object called name and  getting the data from the
+        form rather than the query request from part 10 or the params from part 9. This way
+        the URL doesnt have to be localhost/3000/name?first=john&last=doe. It can just be
+        localhost/3000/name since it's taking the information from the form that was filled
+        out from the user.  
+*/
 
+  app.post("/name", (req, res)=>{
+    res.json( {name: req.body.first + " " + req.body.last});
+  });
 
 
 
