@@ -117,16 +117,15 @@ app.get('/user', function(req, res, next) {
 }, function(req, res) {
   res.send(req.user);
 });
-
-NOTE: must extract new Date().toString();. You cannot do req.time = new Date().toString();. It will not work.
-      You must do req.time = getTheCurrentTimeString();
 */
-function getTheCurrentTimeString(){
-  return new Date().toString();
-}
 
+// Optional-----------------------------------------------------------------
+// function getTheCurrentTimeString(){
+//   return new Date().toString();
+// }
+//--------------------------------------------------------------------------
 app.get('/now', (req, res, next)=>{
-  req.time = getTheCurrentTimeString();
+  req.time = new Date().toString(); // can do req.time = getTheCurrentTimeString();
   next();
 },(req, res)=>{
   res.json({ time: req.time });
